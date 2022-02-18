@@ -1,0 +1,16 @@
+#+TITLE: Juan Pablo Blanco - Blog
+#+hugo_base_dir: .
+#+hugo_section: about
+#+hugo_url: about
+#+EXPORT_FILE_NAME: index
+
+Welcome to my Blog!
+I write about programming, random thoughts, notes from books, etc.
+/Posts could be in English or Spanish./
+
+* Thanks
+
+- Theme I'm using: [[https://github.com/probberechts/hexo-theme-cactus][Cactus Theme]]
+- Hugo: [[https://gohugo.io/][GoHugo]]
+- Org Mode for writing: [[https://orgmode.org/][Org-Mode]]
+- [[https://www.gnu.org/software/emacs/Emacs][Emacs]]
