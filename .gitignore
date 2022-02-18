@@ -1,0 +1,8 @@
+.DS_Store
+
+# Hugo Go
+.hugo_build.lock
+public/
+resources/_gen/
+content/
+*.db

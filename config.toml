@@ -1,3 +1,50 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://jpblanco.dev'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Juan Pablo Blanco'
+theme = 'cactus'
+
+# Main menu which appears below site header.
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 3
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 4
+
+[params]
+  rss = true
+  colortheme = 'dark'
+
+  # Post page settings
+  show_updated = true # default
+  showReadTime = true # default
+  logo = '/avatar.png'
+
+  [[params.social]]
+    name = "github"
+    link = "https://github.com/jpblancodb"
+
+  [[params.social]]
+    name = "twitter"
+    link = "https://twitter.com/jpblancodb"
+
+  [[params.social]]
+    name = "linkedin"
+    link = "https://www.linkedin.com/in/jpblancodb/"
+
+  [[params.social]]
+    name = "email"
+    link = "jpblancodb@gmail.com" # no need for "mailto:" at the start
