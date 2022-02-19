@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install org-roam dependencies
-        run: |
-          sudo apt-get install sqlite3
       - name: Install emacs
         uses: purcell/setup-emacs@master
         with:
