@@ -42,7 +42,14 @@
 (defun build/export-all ()
   "Export all org-files (including nested)."
 
-  (setq org-hugo-base-dir ".")
+  (setq org-hugo-base-dir
+    (let* ((env-key "HUGO_BASE_DIR")
+           (env-value (getenv env-key)))
+      (if (and env-value (file-directory-p env-value))
+          env-value
+        (error (format "%s is not set or is not an existing directory (%s)" env-key env-value)))))
+
+
   (setq org-hugo-section "posts")
 
   (dolist (org-file (directory-files-recursively org-files "\.org$"))
