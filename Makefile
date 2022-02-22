@@ -1,5 +1,5 @@
 BASE_DIR=$(shell pwd)
-EMACS_BUILD_DIR=/tmp/home-build/
+EMACS_BUILD_DIR=/tmp/home-build
 BUILD_DIR=/tmp/home-build/.cache/org-persist/
 HUGO_SECTION=posts
 
