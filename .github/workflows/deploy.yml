@@ -11,7 +11,10 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Install emacs
         uses: purcell/setup-emacs@master
