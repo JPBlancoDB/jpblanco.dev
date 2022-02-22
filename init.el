@@ -35,9 +35,8 @@
 (defun build/export-all ()
   "Export all org-files (including nested)."
 
-  (setq
-    org-hugo-base-dir (file-name-directory buffer-file-name)
-    org-hugo-section "posts")
+  (setq org-hugo-base-dir (file-name-directory buffer-file-name))
+  (setq org-hugo-section "posts")
 
   (dolist (org-file (directory-files-recursively (file-name-directory buffer-file-name) "\.org$"))
     (with-current-buffer (find-file org-file)
