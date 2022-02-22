@@ -10,13 +10,6 @@
 (toggle-debug-on-error)      ;; Show debug informaton as soon as error occurs.
 (setq make-backup-files nil) ;; Disable "<file>~" backups.
 
-(defconst org-files
-  (let* ((env-key "HUGO_BASE_DIR")
-         (env-value (getenv env-key)))
-    (if (and env-value (file-directory-p env-value))
-        env-value
-      (error (format "%s is not set or is not an existing directory (%s)" env-key env-value)))))
-
 ;; Setup packages using straight.el: https://github.com/raxod502/straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -42,17 +35,11 @@
 (defun build/export-all ()
   "Export all org-files (including nested)."
 
-  (setq org-hugo-base-dir
-    (let* ((env-key "HUGO_BASE_DIR")
-           (env-value (getenv env-key)))
-      (if (and env-value (file-directory-p env-value))
-          env-value
-        (error (format "%s is not set or is not an existing directory (%s)" env-key env-value)))))
+  (setq
+    org-hugo-base-dir (file-name-directory buffer-file-name)
+    org-hugo-section "posts")
 
-
-  (setq org-hugo-section "posts")
-
-  (dolist (org-file (directory-files-recursively org-files "\.org$"))
+  (dolist (org-file (directory-files-recursively (file-name-directory buffer-file-name) "\.org$"))
     (with-current-buffer (find-file org-file)
       (message (format "[build] Exporting %s" org-file))
       (org-hugo-export-wim-to-md :all-subtrees nil nil nil)))
