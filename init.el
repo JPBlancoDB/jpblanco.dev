@@ -38,7 +38,7 @@
   (setq org-hugo-base-dir (file-name-directory buffer-file-name))
   (setq org-hugo-section "posts")
 
-  (dolist (org-file (directory-files-recursively (file-name-directory buffer-file-name) "\.org$"))
+  (dolist (org-file (directory-files-recursively default-directory "\.org$"))
     (with-current-buffer (find-file org-file)
       (message (format "[build] Exporting %s" org-file))
       (org-hugo-export-wim-to-md :all-subtrees nil nil nil)))
