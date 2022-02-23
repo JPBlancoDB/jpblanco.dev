@@ -27,6 +27,7 @@ weight = 4
 [params]
   rss = true
   colortheme = 'dark'
+  css = ["css/custom.css"]
 
   # Post page settings
   show_updated = true # default
@@ -44,7 +45,3 @@ weight = 4
   [[params.social]]
     name = "linkedin"
     link = "https://www.linkedin.com/in/jpblancodb/"
-
-  [[params.social]]
-    name = "email"
-    link = "jpblancodb@gmail.com" # no need for "mailto:" at the start

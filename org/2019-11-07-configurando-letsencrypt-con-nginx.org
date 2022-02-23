@@ -1,0 +1,100 @@
+#+TITLE: Configurando LetsEncrypt con Nginx en Ubuntu
+#+DATE: 2019-11-07
+#+HUGO_TAGS: letsencrypt nginx linux servers
+#+HUGO_CATEGORIES: servers nginx
+
+En primer lugar, deberíamos preguntarnos para que sirve LetsEncrypt y nada mejor que citarlos para entender:
+
+#+BEGIN_QUOTE
+Let’s Encrypt is a free, automated, and open Certificate Authority.
+#+END_QUOTE
+
+En resumen, con LetsEncrypt obtenemos un certificado de dominio seguro, el famoso SSL para nuestro sitio y de forma gratuita. Todo esto gracias a la Linux Foundation.
+
+Hecha ya la introducción, pasemos a lo que nos interesa que es como lo configuramos en un servidor linux con Nginx
+
+1. Instalamos certbot en el servidor:
+
+   #+begin_src shell
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+   #+end_src
+
+2. Configuramos el archivo de Nginx:
+   (En este caso como ejemplo usamos el archivo default)
+
+   #+begin_src shell
+sudo nano /etc/nginx/sites-available/default
+   #+end_src
+
+   Buscamos la linea que contiene `server_name` y la reemplazamos por:
+
+   #+begin_src
+server_name dominio.com www.dominio.com;
+   #+end_src
+
+   Verificamos que la configuración de nginx sea correcta con:
+
+   #+begin_src shell
+sudo nginx -t
+   #+end_src
+
+3. Reiniciamos Nginx:
+
+   #+begin_src shell
+sudo systemctl reload nginx
+   #+end_src
+
+4. Instalando el certificado:
+
+   #+begin_src shell
+sudo certbot --nginx -d dominio.com -d www.dominio.com
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+sudo nano /etc/nginx/sites-available/default
+   #+end_src
+
+   Agregamos dentro del bloque server:
+
+   #+begin_src
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+   #+end_src
+
+   Volvemos a verificar que nos haya quedado bien:
+
+   #+begin_src shell
+sudo nginx -t
+   #+end_src
+
+   Reiniciamos Nginx nuevamente:
+
+   #+begin_src shell
+sudo systemctl reload nginx
+   #+end_src
+
+5. Configuramos la renovación automática del certificado:
+
+   #+begin_src shell
+sudo crontab -e
+   #+end_src
+
+   En nuestro archivo agregamos:
+
+   #+begin_src
+15 3 \* \* \* /usr/bin/certbot renew –quiet
+   #+end_src
+
+   De esta forma nos aseguramos que se renueve de forma automática nuestro certificado, dado que caduca cada 90 días.
+
+
+Listo. Ya tenemos nuestro SSL configurado y funcionando.
+
+Por último, si queremos verificar el estado de nuestros certificados con certbot para verificar la fecha de expiración o por ejemplo los dominios que tenemos registrados en nuestro servidor con LetsEncrypt, debemos ejecutar lo siguiente:
+
+#+begin_src shell
+certbot certificates
+#+end_src
+
+Cualquier duda o consulta no duden en dejar sus comentarios o bien me pueden consultar vía [[https://twitter.com/jpblancodb][Twitter]].
+
+¡Saludos!
